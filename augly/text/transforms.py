@@ -5,7 +5,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 import inspect
 import random
@@ -39,7 +39,7 @@ class BaseTransform:
         texts: str | list[str],
         force: bool = False,
         metadata: list[dict[str, Any]] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> str | list[str]:
         """
         @param texts: a string or a list of text documents to be augmented
@@ -67,7 +67,7 @@ class BaseTransform:
 
         return self.apply_transform(texts, metadata, **self.get_aug_kwargs(**kwargs))
 
-    def get_aug_kwargs(self, **kwargs) -> dict[str, Any]:
+    def get_aug_kwargs(self, **kwargs: Any) -> dict[str, Any]:
         """
         @param kwargs: any kwargs that were passed into __call__() intended to override
             the instance variables set in __init__() when calling the augmentation
@@ -89,7 +89,7 @@ class BaseTransform:
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         This function is to be implemented in the child classes. From this function, call
@@ -134,13 +134,13 @@ class ApplyLambda(BaseTransform):
         """
         super().__init__(p)
         self.aug_function = aug_function
-        self.kwargs = kwargs
+        self.kwargs: dict[str, Any] = kwargs
 
     def apply_transform(
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Apply a user-defined lambda on a list of text documents
@@ -196,7 +196,7 @@ class ChangeCase(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Changes the case (e.g. upper, lower, title) of random chars, words, or the entire
@@ -251,7 +251,7 @@ class Contractions(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces pairs (or longer strings) of words with contractions given a mapping
@@ -280,7 +280,7 @@ class EncodeTextTransform(BaseTransform):
         encoder: Literal["base64", "leetspeak"],
         n: int = 1,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param granularity: Level at which to apply base64 encoding.
             Options: 'char', 'word', or 'all' (entire text).
@@ -308,8 +308,8 @@ class EncodeTextTransform(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
-    ) -> str | list:
+        **aug_kwargs: Any,
+    ) -> str | list[str]:
         """
         Encodes the text in base64
 
@@ -334,7 +334,7 @@ class GetBaseline(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Generates a baseline by tokenizing and detokenizing the text
@@ -360,7 +360,7 @@ class InsertPunctuationChars(BaseTransform):
         cadence: float = 1.0,
         vary_chars: bool = False,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param granularity: 'all' or 'word' -- if 'word', a new char is picked and
             the cadence resets for each word in the text
@@ -383,7 +383,7 @@ class InsertPunctuationChars(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Inserts punctuation characters in each input text
@@ -431,7 +431,7 @@ class InsertText(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Inserts some specified text into the input text a given number of times at a
@@ -457,7 +457,7 @@ class InsertWhitespaceChars(BaseTransform):
         cadence: float = 1.0,
         vary_chars: bool = False,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param granularity: 'all' or 'word' -- if 'word', a new char is picked and
             the cadence resets for each word in the text
@@ -480,7 +480,7 @@ class InsertWhitespaceChars(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Inserts whitespace characters in each input text
@@ -529,7 +529,7 @@ class InsertZeroWidthChars(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Inserts zero-width characters in each input text
@@ -587,7 +587,7 @@ class MergeWords(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Merges words in the text together
@@ -612,7 +612,7 @@ class ReplaceBidirectional(BaseTransform):
         granularity: str = "all",
         split_word: bool = False,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param granularity: the level at which the font is applied; this must be
             either 'word' or 'all'
@@ -630,7 +630,7 @@ class ReplaceBidirectional(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Reverses each word (or part of the word) in each input text and uses
@@ -663,7 +663,7 @@ class ReplaceFunFonts(BaseTransform):
         n: int = 1,
         priority_words: list[str] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param aug_p: probability of words to be augmented
 
@@ -699,7 +699,7 @@ class ReplaceFunFonts(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces words or characters depending on the granularity with fun fonts applied
@@ -773,7 +773,7 @@ class ReplaceSimilarChars(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces letters in each text with similar characters
@@ -806,7 +806,7 @@ class ReplaceSimilarUnicodeChars(BaseTransform):
         mapping_path: str = UNICODE_MAPPING_PATH,
         priority_words: list[str] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param aug_char_p: probability of letters to be replaced in each word
 
@@ -847,7 +847,7 @@ class ReplaceSimilarUnicodeChars(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces letters in each text with similar unicodes
@@ -871,7 +871,7 @@ class ReplaceText(BaseTransform):
         self,
         replace_text: str | dict[str, str],
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param replace_text: specifies the text to replace the input text with,
             either as a string or a mapping from input text to new text
@@ -885,7 +885,7 @@ class ReplaceText(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces the input text entirely with some specified text
@@ -912,7 +912,7 @@ class ReplaceUpsideDown(BaseTransform):
         granularity: str = "all",
         n: int = 1,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param aug_p: probability of words to be augmented
 
@@ -938,7 +938,7 @@ class ReplaceUpsideDown(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Flips words in the text upside down depending on the granularity
@@ -968,7 +968,7 @@ class ReplaceWords(BaseTransform):
         priority_words: list[str] | None = None,
         ignore_words: list[str] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param aug_word_p: probability of words to be augmented
 
@@ -1001,7 +1001,7 @@ class ReplaceWords(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces words in each text based on a given mapping
@@ -1092,7 +1092,7 @@ class SimulateTypos(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Simulates typos in each text using misspellings, keyboard distance, and swapping.
@@ -1126,7 +1126,7 @@ class SplitWords(BaseTransform):
         n: int = 1,
         priority_words: list[str] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param aug_word_p: probability of words to be augmented
 
@@ -1155,7 +1155,7 @@ class SplitWords(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Splits words in the text into subwords
@@ -1219,7 +1219,7 @@ class SwapGenderedWords(BaseTransform):
         self,
         texts: str | list[str],
         metadata: list[dict[str, Any]] | None = None,
-        **aug_kwargs,
+        **aug_kwargs: Any,
     ) -> str | list[str]:
         """
         Replaces words in each text based on a provided `mapping`, which can either be a
