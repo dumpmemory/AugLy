@@ -5,7 +5,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 import re
 
@@ -127,12 +127,12 @@ NEGATE_CONTRACTIONS = {
     "wouldn't": "would",
 }
 
-PARENS_BRACKETS = [
+PARENS_BRACKETS: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\s([\[\(\{\<])\s"), r" \1"),
     (re.compile(r"\s([\]\)\}\>])\s"), r"\1 "),
 ]
 
-PUNCTUATION = [
+PUNCTUATION: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\s([-])\s"), r"\1"),  # Zero pad
     (re.compile(r"(\s)?([#])\s"), r"\2"),  # Hashtags
     (re.compile(r"\s([,;:%])\s"), r"\1 "),  # Right pad
@@ -141,13 +141,13 @@ PUNCTUATION = [
     (re.compile(r"(\s)?([\.\?\!])"), r"\2"),  # End punctuation
 ]
 
-QUOTES = [
+QUOTES: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"([\'])\s(.*?)\s([\'])"), r"\1\2\3"),
     (re.compile(r"([\"])\s(.*?)\s([\"])"), r"\1\2\3"),
     (re.compile(r"\s(\')\s"), r"\1 "),
 ]
 
-SPLIT_BY_WHITESPACE = re.compile(r"(\S+)")
+SPLIT_BY_WHITESPACE: re.Pattern[str] = re.compile(r"(\S+)")
 
 TOKENIZER_REGEXPS = (
     r"""
@@ -161,11 +161,11 @@ TOKENIZER_REGEXPS = (
     """,
 )
 
-TOKENIZER_REGEX = regex.compile(
+TOKENIZER_REGEX: regex.Pattern[str] = regex.compile(
     r"""(%s)""" % "|".join(TOKENIZER_REGEXPS), regex.VERBOSE | regex.UNICODE
 )
 
-UPSIDE_DOWN_CHAR_MAPPING = dict(
+UPSIDE_DOWN_CHAR_MAPPING: dict[str, str] = dict(
     zip(
         "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA0987654321&_?!\"'.,;",
         "zʎxʍʌnʇsɹbdouɯlʞɾᴉɥɓɟǝpɔqɐZ⅄XMΛՈꞱSᴚტԀONW⅂ꓘᒋIH⅁ℲƎᗡƆᗺⱯ068ㄥ9Ϛ߈Ɛᘔ⇂⅋‾¿¡„,˙'؛",
