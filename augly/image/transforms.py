@@ -1424,7 +1424,7 @@ class OverlayText(BaseTransform):
         x_pos: float = 0.0,
         y_pos: float = 0.5,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param text: indices (into the file) of the characters to be overlaid. Each line
             of text is represented as a list of int indices; if a list of lists is
@@ -1503,7 +1503,7 @@ class OverlayWrapText(BaseTransform):
         color: tuple[int, int, int] | None = None,
         random_seed: int | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """Randomly overlay a pre-defined text on an image
 
         @param img: Image to overlay text on
