@@ -5,10 +5,10 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 import numbers
-from typing import Any, Union
+from typing import Any, TypeAlias
 
 import numpy as np
 import torch
@@ -23,8 +23,8 @@ import soundfile as sf  # @manual=fbsource//third-party/pypi/soundfile:soundfile
 import torchaudio
 
 # Use Any because np.random.Generator is not a valid type for pyre
-RNG = Any
-RNGSeed = Union[int, RNG]
+RNG: TypeAlias = Any
+RNGSeed: TypeAlias = int | RNG
 Segment = utils.Segment
 
 
@@ -104,7 +104,7 @@ def get_metadata(
     sample_rate: int,
     dst_audio: np.ndarray,
     dst_sample_rate: int,
-    **kwargs,
+    **kwargs: Any,
 ) -> None:
     if metadata is None:
         return
@@ -147,7 +147,7 @@ def compute_changed_segments(
     src_duration: float,
     dst_duration: float,
     speed_factor: float,
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[list[Segment], list[Segment]]:
     """
     This function performs the logic of computing the new matching segments based
@@ -199,7 +199,7 @@ def compute_segments(
     src_duration: float,
     dst_duration: float,
     metadata: list[dict[str, Any]],
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[list[Segment], list[Segment]]:
     speed_factor = 1.0
     if not metadata:
