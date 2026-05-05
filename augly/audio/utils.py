@@ -8,7 +8,7 @@
 # pyre-strict
 
 import numbers
-from typing import Any, TypeAlias
+from typing import Any, cast, TypeAlias
 
 import numpy as np
 import torch
@@ -88,8 +88,7 @@ def check_random_state(seed: RNGSeed | None) -> RNG:
     if seed is None or seed is np.random:
         return np.random.mtrand._rand
     if isinstance(seed, numbers.Integral):
-        # pyre-fixme[6]: For 1st argument expected `Union[None, _SupportsArray[dtype[...
-        return np.random.RandomState(seed)
+        return np.random.RandomState(cast(int, seed))
     if isinstance(seed, (np.random.RandomState, np.random.Generator)):
         return seed
     raise ValueError(
