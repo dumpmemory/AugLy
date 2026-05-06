@@ -5,7 +5,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 import random
 from collections.abc import Iterator
@@ -16,6 +16,11 @@ from augly.video.augmenters.cv2.base_augmenter import BaseCV2Augmenter
 
 
 class VideoDistractorByShapes(BaseCV2Augmenter):
+    shape_type: Iterator[str]
+    colors: Iterator[tuple[int, int, int]]
+    thickness: Iterator[int]
+    radius: Iterator[float]
+
     def __init__(
         self,
         num_shapes: int,
@@ -26,7 +31,7 @@ class VideoDistractorByShapes(BaseCV2Augmenter):
         random_movement: bool = True,
         topleft: tuple[float, float] | None = None,
         bottomright: tuple[float, float] | None = None,
-        **kwargs,
+        **kwargs: object,
     ) -> None:
         assert num_shapes > 0, "Number of shapes must be greater than zero"
         assert shape_type is None or shape_type in [
@@ -46,7 +51,7 @@ class VideoDistractorByShapes(BaseCV2Augmenter):
         self.radius = VideoDistractorByShapes.random_radius(radius)
 
     # overrides abstract method of base class
-    def apply_augmentation(self, raw_frame: np.ndarray, **kwargs) -> np.ndarray:
+    def apply_augmentation(self, raw_frame: np.ndarray, **kwargs: object) -> np.ndarray:
         """
         Adds shape distracts (in various colors and positions) to each frame
 
