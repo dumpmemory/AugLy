@@ -512,7 +512,7 @@ class ChangeAspectRatio(BaseTransform):
 
 
 class ChangeVideoSpeed(BaseTransform):
-    def __init__(self, factor: float = 1.0, p: float = 1.0):
+    def __init__(self, factor: float = 1.0, p: float = 1.0) -> None:
         """
         @param factor: the factor by which to alter the speed of the video. A factor
             less than one will slow down the video, a factor equal to one won't alter
@@ -1040,7 +1040,7 @@ class InsertInBackgroundMultiple(BaseTransform):
 
 
 class Loop(BaseTransform):
-    def __init__(self, num_loops: int = 0, p: float = 1.0):
+    def __init__(self, num_loops: int = 0, p: float = 1.0) -> None:
         """
         @param num_loops: the number of times to loop the video. 0 means that the
             video will play once (i.e. no loops)
