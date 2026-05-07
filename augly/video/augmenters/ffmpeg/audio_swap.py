@@ -5,12 +5,17 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
+# pyre-strict
+
 from augly.utils import pathmgr
 from augly.video.augmenters.ffmpeg.base_augmenter import BaseVidgearFFMPEGAugmenter
 from augly.video.helpers import get_audio_info, get_video_info
 
 
 class VideoAugmenterByAudioSwap(BaseVidgearFFMPEGAugmenter):
+    audio_path: str
+    offset: float
+
     def __init__(self, audio_path: str, offset: float) -> None:
         assert offset >= 0, "Offset cannot be a negative number"
 
