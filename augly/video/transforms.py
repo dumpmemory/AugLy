@@ -2029,7 +2029,7 @@ class Shift(BaseTransform):
         y_factor: float = 0.0,
         color: tuple[int, int, int] = utils.DEFAULT_COLOR,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param x_factor: the horizontal amount that the video should be shifted,
             relative to the width of the video
@@ -2481,7 +2481,7 @@ class RandomEmojiOverlay(BaseTransform):
         x_factor: float = 0.4,
         y_factor: float = 0.4,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param emoji_directory: iopath directory uri containing the emoji images
 
