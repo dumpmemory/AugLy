@@ -5,17 +5,18 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 import random
 from collections.abc import Callable
+from typing import Any
 
 import numpy as np
 from PIL import Image, ImageFont
 
 
 def aug_np_wrapper(
-    image: np.ndarray, aug_function: Callable[..., None], **kwargs
+    image: np.ndarray, aug_function: Callable[..., Image.Image], **kwargs: Any
 ) -> np.ndarray:
     """
     This function is a wrapper on all image augmentation functions
