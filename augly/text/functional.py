@@ -5,7 +5,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 from collections.abc import Callable
 from copy import deepcopy
@@ -25,7 +25,7 @@ def apply_lambda(
     texts: str | list[str],
     aug_function: Callable[..., list[str]] = lambda x: x,
     metadata: list[dict[str, Any]] | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> str | list[str]:
     """
     Apply a user-defined lambda on a list of text documents
