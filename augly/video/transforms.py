@@ -1335,7 +1335,7 @@ class OverlayOntoBackgroundVideo(BaseTransform):
         y_factor: float = 0.0,
         use_background_audio: bool = False,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param background_path: the path to the background video
 
