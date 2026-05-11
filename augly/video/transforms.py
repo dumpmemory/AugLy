@@ -555,7 +555,7 @@ class ColorJitter(BaseTransform):
         contrast_factor: float = 1.0,
         saturation_factor: float = 1.0,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param brightness_factor: set the brightness expression. The value must be
             a float value in range -1.0 to 1.0. The default value is 0
