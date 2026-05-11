@@ -672,7 +672,7 @@ class Crop(BaseTransform):
         x2: float = 0.75,
         y2: float = 0.75,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param x1: position of the left edge of cropped image relative to the width
             of the original image; must be a float value between 0 and 1
@@ -1990,7 +1990,7 @@ class Resize(BaseTransform):
         height: int | None = None,
         resample: Any = Image.BILINEAR,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param width: the desired width the image should be resized to have. If None,
             the original image width will be used
