@@ -1216,7 +1216,7 @@ class OverlayDots(BaseTransform):
         random_movement: bool = True,
         metadata: list[dict[str, Any]] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param num_dots: the number of dots to add to each frame
 
@@ -2583,7 +2583,9 @@ class RandomEncodingQuality(BaseRandomRangeTransform):
 
 
 class RandomFPS(BaseRandomRangeTransform):
-    def __init__(self, min_fps: float = 5.0, max_fps: float = 30.0, p: float = 1.0):
+    def __init__(
+        self, min_fps: float = 5.0, max_fps: float = 30.0, p: float = 1.0
+    ) -> None:
         """
         @param min_fps: the lower value on the range of fps values to choose from
 
