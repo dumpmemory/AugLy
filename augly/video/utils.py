@@ -5,9 +5,8 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
-import functools
 import os
 import shutil
 import tempfile
@@ -27,10 +26,10 @@ Utility Functions: Augmentation Application Functions
 
 
 def apply_to_each_frame(
-    img_aug_function: functools.partial,
+    img_aug_function: Callable[..., object],
     video_path: str,
     output_path: str | None,
-    frame_func: Callable[[int], dict] | None = None,
+    frame_func: Callable[[int], dict[str, object]] | None = None,
 ) -> None:
     video_path, output_path = helpers.validate_input_and_output_paths(
         video_path, output_path
@@ -60,7 +59,7 @@ def apply_to_each_frame(
 
 
 def apply_to_frames(
-    img_aug_function: functools.partial,
+    img_aug_function: Callable[..., object],
     video_path: str,
     second_video_path: str,
     output_path: str | None,
@@ -109,7 +108,7 @@ def apply_cv2_augmenter(
     distractor: ac.BaseCV2Augmenter,
     video_path: str,
     output_path: str | None,
-    **kwargs,
+    **kwargs: object,
 ) -> None:
     video_path, output_path = helpers.validate_input_and_output_paths(
         video_path, output_path
