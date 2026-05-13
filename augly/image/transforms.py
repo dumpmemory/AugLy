@@ -731,7 +731,7 @@ class Crop(BaseTransform):
 
 
 class EncodingQuality(BaseTransform):
-    def __init__(self, quality: int = 50, p: float = 1.0):
+    def __init__(self, quality: int = 50, p: float = 1.0) -> None:
         """
         @param quality: JPEG encoding quality. 0 is lowest quality, 100 is highest
 
@@ -2460,7 +2460,7 @@ class HStack(BaseTransform):
 class SplitAndShuffle(BaseTransform):
     def __init__(
         self, n_columns: int = 3, n_rows: int = 3, seed: int = 10, p: float = 1.0
-    ):
+    ) -> None:
         """
         @param n_columns: number of columns to split the image into
 
