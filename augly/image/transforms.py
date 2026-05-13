@@ -1595,7 +1595,7 @@ class OverlayRandomTextWithBackground(BaseTransform):
         num_overlays: int = 1,
         phrases: list[str] | None = None,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param scale_factor: controls font size scaling relative to the base
             font_size, must be in (0, 1]
