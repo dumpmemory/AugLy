@@ -991,7 +991,7 @@ class InsertInBackgroundMultiple(BaseTransform):
         additional_video_paths: list[str],
         src_ids: list[str],
         seed: int | None = None,
-    ):
+    ) -> None:
         """
         @param background_path: the path of the video in which to insert
             the main (and additional) video.
@@ -2704,7 +2704,7 @@ class RandomPixelization(BaseRandomRangeTransform):
 class RandomRotation(BaseRandomRangeTransform):
     def __init__(
         self, min_degrees: float = 0.0, max_degrees: float = 180.0, p: float = 1.0
-    ):
+    ) -> None:
         """
         @param min_degrees: the lower value on the range of degree values to choose from
 
