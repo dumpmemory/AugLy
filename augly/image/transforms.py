@@ -776,7 +776,7 @@ class EncodingQuality(BaseTransform):
 
 
 class Grayscale(BaseTransform):
-    def __init__(self, mode: str = "luminosity", p: float = 1.0):
+    def __init__(self, mode: str = "luminosity", p: float = 1.0) -> None:
         """
         @param mode: the type of greyscale conversion to perform; two options are
             supported ("luminosity" and "average")
@@ -2703,7 +2703,7 @@ class RandomBlur(BaseRandomRangeTransform):
 class RandomBrightness(BaseRandomRangeTransform):
     def __init__(
         self, min_factor: float = 0.0, max_factor: float = 2.0, p: float = 1.0
-    ):
+    ) -> None:
         """
         @param min_factor: the lower value on the range of brightness values to choose
             from. The lower the factor, the darker the image
