@@ -405,7 +405,7 @@ class BlendVideos(BaseTransform):
 
 
 class Blur(BaseTransform):
-    def __init__(self, sigma: float = 1.0, p: float = 1.0):
+    def __init__(self, sigma: float = 1.0, p: float = 1.0) -> None:
         """
         @param sigma: horizontal sigma, standard deviation of Gaussian blur
 
@@ -2659,7 +2659,9 @@ class RandomNoise(BaseRandomRangeTransform):
 
 
 class RandomPixelization(BaseRandomRangeTransform):
-    def __init__(self, min_ratio: float = 0.1, max_ratio: float = 1.0, p: float = 1.0):
+    def __init__(
+        self, min_ratio: float = 0.1, max_ratio: float = 1.0, p: float = 1.0
+    ) -> None:
         """
         @param min_ratio: the lower value on the range of pixelization ratio values to
             choose from. Smaller values result in a more pixelated video, 1.0 indicates
