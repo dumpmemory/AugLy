@@ -526,7 +526,7 @@ class ColorJitter(BaseTransform):
 
 
 class Contrast(BaseTransform):
-    def __init__(self, factor: float = 1.0, p: float = 1.0):
+    def __init__(self, factor: float = 1.0, p: float = 1.0) -> None:
         """
         @param factor: zero gives a grayscale image, values below 1.0 decrease contrast,
             a factor of 1.0 gives the original image, and a factor greater than 1.0
@@ -921,7 +921,7 @@ class MemeFormat(BaseTransform):
         caption_height: int = 250,
         meme_bg_color: tuple[int, int, int] = utils.WHITE_RGB_COLOR,
         p: float = 1.0,
-    ):
+    ) -> None:
         """
         @param text: the text to be overlaid/used in the meme. note: if using a very
             long string, please add in newline characters such that the text remains
