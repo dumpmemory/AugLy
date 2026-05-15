@@ -5,7 +5,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-# pyre-unsafe
+# pyre-strict
 
 """
 Implementation of base class for FFMPEG-based video augmenters
@@ -19,6 +19,7 @@ import os
 import shutil
 import tempfile
 from abc import ABC, abstractmethod
+from typing import Any
 
 from augly.video.helpers import validate_input_and_output_paths
 from vidgear.gears import WriteGear
@@ -26,7 +27,7 @@ from vidgear.gears import WriteGear
 
 class BaseVidgearFFMPEGAugmenter(ABC):
     def add_augmenter(
-        self, video_path: str, output_path: str | None = None, **kwargs
+        self, video_path: str, output_path: str | None = None, **kwargs: Any
     ) -> None:
         """
         Applies the specific augmentation to the video
