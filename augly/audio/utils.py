@@ -86,8 +86,10 @@ def check_random_state(seed: RNGSeed | None) -> RNG:
         Otherwise raise ValueError.
     """
     if seed is None or seed is np.random:
+        # pyrefly: ignore [missing-attribute]
         return np.random.mtrand._rand
     if isinstance(seed, numbers.Integral):
+        # pyrefly: ignore [bad-argument-type]
         return np.random.RandomState(cast(int, seed))
     if isinstance(seed, (np.random.RandomState, np.random.Generator)):
         return seed

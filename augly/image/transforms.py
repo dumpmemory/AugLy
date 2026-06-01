@@ -1416,6 +1416,7 @@ class OverlayStripes(BaseTransform):
 class OverlayText(BaseTransform):
     def __init__(
         self,
+        # pyrefly: ignore [bad-function-definition]
         text: list[int | list[int]] = utils.DEFAULT_TEXT_INDICES,
         font_file: str = utils.FONT_PATH,
         font_size: float = 0.15,
@@ -2643,6 +2644,7 @@ class RandomAspectRatio(BaseRandomRangeTransform):
         """
         return F.change_aspect_ratio(
             image,
+            # pyrefly: ignore [bad-argument-type]
             ratio=self.chosen_value,
             metadata=metadata,
             bboxes=bboxes,
@@ -2693,6 +2695,7 @@ class RandomBlur(BaseRandomRangeTransform):
         """
         return F.blur(
             image,
+            # pyrefly: ignore [bad-argument-type]
             radius=self.chosen_value,
             metadata=metadata,
             bboxes=bboxes,
@@ -2743,6 +2746,7 @@ class RandomBrightness(BaseRandomRangeTransform):
         """
         return F.brightness(
             image,
+            # pyrefly: ignore [bad-argument-type]
             factor=self.chosen_value,
             metadata=metadata,
             bboxes=bboxes,
@@ -2905,6 +2909,7 @@ class RandomPixelization(BaseRandomRangeTransform):
         """
         return F.pixelization(
             image,
+            # pyrefly: ignore [bad-argument-type]
             ratio=self.chosen_value,
             metadata=metadata,
             bboxes=bboxes,
@@ -2969,6 +2974,7 @@ class RandomRotation(BaseRandomRangeTransform):
         """
         return F.rotate(
             image,
+            # pyrefly: ignore [bad-argument-type]
             degrees=self.chosen_value,
             expand=self.expand,
             fill_color=self.fill_color,

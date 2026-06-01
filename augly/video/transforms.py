@@ -1951,7 +1951,14 @@ class Resize(BaseTransform):
         @returns: the path to the augmented video
         """
         return F.resize(
-            video_path, output_path, self.height, self.width, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            self.height,
+            # pyrefly: ignore [bad-argument-type]
+            self.width,
+            metadata=metadata,
         )
 
 
@@ -2345,7 +2352,12 @@ class RandomAspectRatio(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.change_aspect_ratio(
-            video_path, output_path, ratio=self.chosen_value, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            ratio=self.chosen_value,
+            metadata=metadata,
         )
 
 
@@ -2385,7 +2397,12 @@ class RandomBlur(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.blur(
-            video_path, output_path, sigma=self.chosen_value, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            sigma=self.chosen_value,
+            metadata=metadata,
         )
 
 
@@ -2427,6 +2444,7 @@ class RandomBrightness(BaseRandomRangeTransform):
         return F.brightness(
             video_path,
             output_path,
+            # pyrefly: ignore [bad-argument-type]
             level=self.chosen_value,
             metadata=metadata,
         )
@@ -2468,7 +2486,12 @@ class RandomContrast(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.contrast(
-            video_path, output_path, level=self.chosen_value, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            level=self.chosen_value,
+            metadata=metadata,
         )
 
 
@@ -2577,6 +2600,7 @@ class RandomEncodingQuality(BaseRandomRangeTransform):
         return F.encoding_quality(
             video_path,
             output_path,
+            # pyrefly: ignore [bad-argument-type]
             quality=int(self.chosen_value),
             metadata=metadata,
         )
@@ -2617,6 +2641,7 @@ class RandomFPS(BaseRandomRangeTransform):
 
         @returns: the path to the augmented video
         """
+        # pyrefly: ignore [bad-argument-type]
         return F.fps(video_path, output_path, fps=self.chosen_value, metadata=metadata)
 
 
@@ -2654,7 +2679,12 @@ class RandomNoise(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.add_noise(
-            video_path, output_path, level=int(self.chosen_value), metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            level=int(self.chosen_value),
+            metadata=metadata,
         )
 
 
@@ -2698,6 +2728,7 @@ class RandomPixelization(BaseRandomRangeTransform):
         return F.pixelization(
             video_path,
             output_path,
+            # pyrefly: ignore [bad-argument-type]
             ratio=self.chosen_value,
             metadata=metadata,
         )
@@ -2737,7 +2768,12 @@ class RandomRotation(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.rotate(
-            video_path, output_path, degrees=self.chosen_value, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            degrees=self.chosen_value,
+            metadata=metadata,
         )
 
 
@@ -2781,5 +2817,10 @@ class RandomVideoSpeed(BaseRandomRangeTransform):
         @returns: the path to the augmented video
         """
         return F.change_video_speed(
-            video_path, output_path, factor=self.chosen_value, metadata=metadata
+            # pyrefly: ignore [bad-argument-type]
+            video_path,
+            output_path,
+            # pyrefly: ignore [bad-argument-type]
+            factor=self.chosen_value,
+            metadata=metadata,
         )

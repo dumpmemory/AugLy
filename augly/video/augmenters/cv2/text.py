@@ -104,6 +104,7 @@ class VideoDistractorByText(BaseCV2Augmenter):
                     chars = [chr(c) for c in pickle.load(f)]
             else:
                 chars = list(string.ascii_letters + string.punctuation)
+            # pyrefly: ignore [invalid-yield]
             yield font, chars
 
     def random_fontscales(

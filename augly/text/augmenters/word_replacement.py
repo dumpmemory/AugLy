@@ -84,6 +84,7 @@ class WordReplacementAugmenter(WordAugmenter):
         filtered_word_idxes = self.pre_skip_aug(tokens)
 
         if self.priority_words is None:
+            # pyrefly: ignore [bad-assignment]
             self.priority_words = self.word_mapping.mapping.keys()
 
         aug_word_idxes = set(

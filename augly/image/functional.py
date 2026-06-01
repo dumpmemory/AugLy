@@ -1842,6 +1842,7 @@ def overlay_random_text_with_background(
     random.seed(seed)
 
     if font_file is None:
+        # pyrefly: ignore [bad-assignment]
         font_file = utils.SOCIAL_MEDIA_OVERLAY_FONTS
 
     font_files = font_file if isinstance(font_file, list) else [font_file]
@@ -1877,6 +1878,7 @@ def overlay_random_text_with_background(
 
     for overlay_idx in range(num_overlays):
         cur_font_file = random.choice(font_files)
+        # pyrefly: ignore [bad-argument-type]
         local_font_path = utils.pathmgr.get_local_path(cur_font_file)
 
         text = random.choice(phrases)
@@ -2054,6 +2056,7 @@ def overlay_random_text_with_background(
 def overlay_text(
     image: str | Image.Image,
     output_path: str | None = None,
+    # pyrefly: ignore [bad-function-definition]
     text: list[int | list[int]] = utils.DEFAULT_TEXT_INDICES,
     font_file: str = utils.FONT_PATH,
     font_size: float = 0.15,
@@ -2472,6 +2475,7 @@ def perspective_transform(
     func_kwargs = imutils.get_func_kwargs(metadata, locals())
     src_mode = image.mode
 
+    # pyrefly: ignore [bad-argument-type]
     rng = np.random.RandomState(seed) if seed is not None else np.random
     width, height = image.size
 
@@ -2616,6 +2620,7 @@ def random_noise(
     src_mode = image.mode
 
     if seed is not None:
+        # pyrefly: ignore [bad-argument-type]
         np.random.seed(seed=seed)
 
     np_image = np.asarray(image).astype(np.float32)
@@ -3158,6 +3163,7 @@ def shuffle_pixels(
 
     @returns: the augmented PIL Image
     """
+    # pyrefly: ignore [bad-argument-type]
     np.random.seed(seed)
 
     image = imutils.validate_and_load_image(image)
@@ -3307,6 +3313,7 @@ def split_and_shuffle(
 
     @returns: the augmented PIL Image
     """
+    # pyrefly: ignore [bad-argument-type]
     np.random.seed(seed)
 
     image = imutils.validate_and_load_image(image)
