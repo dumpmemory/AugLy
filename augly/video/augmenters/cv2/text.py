@@ -146,7 +146,10 @@ class VideoDistractorByText(BaseCV2Augmenter):
         distract_frame = raw_frame.copy()
         if isinstance(font, str):
             with pathmgr.open(font, "rb") as f:
-                font = ImageFont.truetype(f, int(fontscale * 100))
+                font = ImageFont.truetype(
+                    f,  # pyrefly: ignore[bad-argument-type]
+                    int(fontscale * 100),
+                )
         if isinstance(
             font,
             (ImageFont.ImageFont, ImageFont.FreeTypeFont, ImageFont.TransposedFont),
