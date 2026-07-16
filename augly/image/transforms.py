@@ -1989,7 +1989,7 @@ class Resize(BaseTransform):
         self,
         width: int | None = None,
         height: int | None = None,
-        resample: Any = Image.BILINEAR,
+        resample: Any = Image.Resampling.BILINEAR,
         p: float = 1.0,
     ) -> None:
         """

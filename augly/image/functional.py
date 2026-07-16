@@ -558,7 +558,13 @@ def convert_color(
     @returns: Image.Image - Augmented PIL Image
     """
     image = imutils.validate_and_load_image(image)
-    aug_image = image.convert(mode, matrix, dither, palette, colors)
+    aug_image = image.convert(
+        mode,
+        matrix,
+        Image.Dither(dither) if dither is not None else None,
+        Image.Palette(palette),
+        colors,
+    )
 
     func_kwargs = imutils.get_func_kwargs(metadata, locals())
     imutils.get_metadata(
@@ -750,6 +756,7 @@ def grayscale(
         elif mode == "average":
             np_image = np.asarray(image).astype(np.float32)
             np_image = np.average(np_image, axis=2)
+            # pyrefly: ignore [bad-argument-type]
             aug_image = Image.fromarray(np.uint8(np_image))
         aug_image = aug_image.convert(mode="RGB")
 
@@ -794,7 +801,7 @@ def hflip(
     @returns: the augmented PIL Image
     """
     image = imutils.validate_and_load_image(image)
-    aug_image = image.transpose(Image.FLIP_LEFT_RIGHT)
+    aug_image = image.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
 
     func_kwargs = imutils.get_func_kwargs(metadata, locals())
 
@@ -1517,6 +1524,7 @@ def overlay_stripes(
         )
         binary_mask *= perpendicular_mask
 
+    # pyrefly: ignore [bad-argument-type]
     mask = Image.fromarray(np.uint8(binary_mask * line_opacity * 255))
 
     foreground = Image.new("RGB", image.size, line_color)
@@ -1619,8 +1627,8 @@ def overlay_random_text(
     font = ImageFont.truetype(local_font_path, font_size)
 
     bbox = draw.textbbox((0, 0), text, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
+    text_width = int(bbox[2] - bbox[0])
+    text_height = int(bbox[3] - bbox[1])
 
     max_x = max(0, width - text_width)
     max_y = max(0, height - text_height)
@@ -1926,19 +1934,19 @@ def overlay_random_text_with_background(
 
             wrapped_text = "\n".join(lines)
             bbox = draw.textbbox((0, 0), wrapped_text, font=font)
-            text_height = bbox[3] - bbox[1]
+            text_height = int(bbox[3] - bbox[1])
             total_block_height = text_height + 2 * padding
             if total_block_height <= max_per_overlay_height:
                 actual_font_size = try_size
                 break
 
         bbox = draw.textbbox((0, 0), "\n".join(lines), font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
+        text_width = int(bbox[2] - bbox[0])
+        text_height = int(bbox[3] - bbox[1])
         total_block_height = min(text_height + 2 * padding, max_per_overlay_height)
 
         single_line_bbox = draw.textbbox((0, 0), "Ay", font=font)
-        line_height = single_line_bbox[3] - single_line_bbox[1]
+        line_height = int(single_line_bbox[3] - single_line_bbox[1])
         line_spacing = int(line_height * 0.15)
 
         text_y = height - text_height - 2 * padding
@@ -2005,7 +2013,9 @@ def overlay_random_text_with_background(
                 )
                 local_text_y += line_height + line_spacing
 
-            rotated = tmp.rotate(-text_rotation, expand=True, resample=Image.BICUBIC)
+            rotated = tmp.rotate(
+                -text_rotation, expand=True, resample=Image.Resampling.BICUBIC
+            )
             orig_cx = box_x_start + local_w // 2
             orig_cy = (text_y - padding) + local_h // 2
             paste_x = orig_cx - rotated.width // 2
@@ -2489,7 +2499,10 @@ def perspective_transform(
         src_coords, dst_coords
     )
     aug_image = image.transform(
-        (width, height), Image.PERSPECTIVE, perspective_transform_coeffs, Image.BICUBIC
+        (width, height),
+        Image.Transform.PERSPECTIVE,
+        list(perspective_transform_coeffs),
+        Image.Resampling.BICUBIC,
     )
 
     if crop_out_black_border:
@@ -2638,6 +2651,7 @@ def random_noise(
 
     noisy_image *= 255.0
 
+    # pyrefly: ignore [bad-argument-type]
     aug_image = Image.fromarray(np.uint8(noisy_image))
 
     imutils.get_metadata(
@@ -2802,7 +2816,7 @@ def resize(
     output_path: str | None = None,
     width: int | None = None,
     height: int | None = None,
-    resample: Any = Image.BILINEAR,
+    resample: Any = Image.Resampling.BILINEAR,
     metadata: list[dict[str, Any]] | None = None,
     bboxes: list[tuple] | None = None,
     bbox_format: str | None = None,
@@ -3045,12 +3059,12 @@ def scale(
     """
     assert factor > 0, "Expected 'factor' to be a positive number"
     assert interpolation in [
-        Image.NEAREST,
-        Image.BOX,
-        Image.BILINEAR,
-        Image.HAMMING,
-        Image.BICUBIC,
-        Image.LANCZOS,
+        Image.Resampling.NEAREST,
+        Image.Resampling.BOX,
+        Image.Resampling.BILINEAR,
+        Image.Resampling.HAMMING,
+        Image.Resampling.BICUBIC,
+        Image.Resampling.LANCZOS,
         None,
     ], "Invalid interpolation specified"
 
@@ -3060,7 +3074,9 @@ def scale(
     src_mode = image.mode
 
     if interpolation is None:
-        interpolation = Image.LANCZOS if factor < 1 else Image.BILINEAR
+        interpolation = (
+            Image.Resampling.LANCZOS if factor < 1 else Image.Resampling.BILINEAR
+        )
 
     width, height = image.size
 
@@ -3259,7 +3275,12 @@ def skew(
             f"Invalid 'axis' value: Got '{axis}', expected 0 for 'x-axis' or 1 for 'y-axis'"
         )
 
-    aug_image = image.transform((w, h), Image.AFFINE, data, resample=Image.BILINEAR)
+    aug_image = image.transform(
+        (w, h),
+        Image.Transform.AFFINE,
+        data,
+        resample=Image.Resampling.BILINEAR,
+    )
     imutils.get_metadata(
         metadata=metadata,
         function_name="skew",
@@ -3534,7 +3555,7 @@ def vflip(
     @returns: the augmented PIL Image
     """
     image = imutils.validate_and_load_image(image)
-    aug_image = image.transpose(Image.FLIP_TOP_BOTTOM)
+    aug_image = image.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
 
     func_kwargs = imutils.get_func_kwargs(metadata, locals())
     src_mode = image.mode

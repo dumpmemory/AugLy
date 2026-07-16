@@ -29,6 +29,7 @@ def aug_np_wrapper(
 
     @param **kwargs: the input attributes to be passed into the augmentation function
     """
+    # pyrefly: ignore [bad-argument-type]
     pil_image = Image.fromarray(image)
     aug_image = aug_function(pil_image, **kwargs)
     return np.array(aug_image)
@@ -75,7 +76,7 @@ def fit_text_in_bbox(
 
         # wrap text around image
         lines = wrap_text_for_image_overlay(text, font, int(max_img_width - random_x))
-        _, _, _, line_height = font.getbbox("hg")
+        line_height = int(font.getbbox("hg")[3])
 
         y_min = int(img_height * 0.05)  # reserves 5% on the top
         y_max = int(img_height * 0.9)  # reserves 10% to the bottom
